@@ -6,32 +6,29 @@ input  [`WIDTH-1:0] b;
 output  [`WIDTH-1:0] o;
 
 
-reg [7:0] Q[0:`WIDTH-1];
-integer count,i,y;
+reg [7:0] Q[0:`WIDTH];
+integer count,i;
 reg [`WIDTH-1:0] b_temp, a_temp, tmp_shift;
 
 
 
 
 initial begin
- for(i=0; i<8; i=i+1) begin
-        Q[i] <= 0;
+ for(i=0; i<9; i=i+1) begin
+     Q[i] <= 8'b0;
     end
    count =0;
- #21   a_temp <= a;
- #21   b_temp <= b << 4;   
+  #10  a_temp <= a;
+  #10  b_temp <= b << 4 ;   
 end
 
 always@(*) begin
-    for (count=0; count<7; count=count+1) begin
+    for (count=0; count<5; count=count+1) begin
             b_temp = b_temp >> 1;
-            for (y=7; y>0; y=y-1) begin
-                    Q[y] = Q[y-1];
-            end
-            Q[0] = 0;
-//            Q[count+1] = Q[count] << 1;
+            Q[count+1] = (Q[count] << 1) + Q[0];
            if((a_temp - b_temp)<0) begin
                 Q[0] = 0;
+                a_temp = a_temp + 0;
            end
            else begin
                  Q[0] = 1;
@@ -39,14 +36,7 @@ always@(*) begin
            end
     end
 end
-
-//always@(*) begin
-//    b_temp = a/b;
-//end
-
-assign o = Q[3];
-
-
+assign o = Q[7];
 endmodule
 
 // DO NOT change IO signals and define

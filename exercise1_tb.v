@@ -26,7 +26,7 @@ module exercise1_tb(
     initial begin
         
         //you can uncomment the following statement for debugging
-        $monitor("%d\tA=%d\tB=%d\tC=%d\tD=%d\tselect=%b\tout=%d\terror=%d",$time,A,B,C,D,select,out,error);
+        $monitor("%d\tA=%d\tB=%d\tC=%d\tD=%d\tselect=%b\tout=%b\terror=%d",$time,A,B,C,D,select,out,error);
 
         #0 pass=1'b1; $display("%d Starting Simulation", $time);
         #`DELAY select=2'b00; A=`WIDTH'd15; B=`WIDTH'd2; C=`WIDTH'd12; D=`WIDTH'd12;
